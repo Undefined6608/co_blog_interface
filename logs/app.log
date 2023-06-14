@@ -1,1 +1,187 @@
 [2023-06-14T08:05:10.784] [INFO] default - app is running at port=3000
+[2023-06-14T09:44:26.488] [INFO] default - app is running at port=3000
+[2023-06-14T09:44:44.717] [INFO] default - { username: '张杰' }
+[2023-06-14T09:44:44.767] [ERROR] default - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:399:5)
+    at ServerResponse.setHeader (node:_http_outgoing:645:11)
+    at ServerResponse.header (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\response.js:278:15)
+    at ServerResponse.send (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\response.js:162:21)
+    at exports.userNameOccupy (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:18:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}
+[2023-06-14T09:46:56.131] [INFO] default - app is running at port=3000
+[2023-06-14T09:47:05.893] [INFO] default - { username: '张杰' }
+[2023-06-14T09:48:58.590] [INFO] default - { phone: '17865937390' }
+[2023-06-14T09:49:55.338] [INFO] default - { email: '15506531157@163.com' }
+[2023-06-14T09:51:50.262] [INFO] default - { username: '', password: '', phone: '', email: '' }
+[2023-06-14T09:53:58.503] [INFO] default - {
+  username: '张杰',
+  password: '123456',
+  phone: '15506531157',
+  email: '19953008089@163.com'
+}
+[2023-06-14T09:54:26.115] [INFO] default - {
+  username: 'zj',
+  password: '123456',
+  phone: '17865937390',
+  email: '19953008089@163.com'
+}
+[2023-06-14T09:54:43.588] [INFO] default - {
+  username: 'zj',
+  password: '123456',
+  phone: '15506531157',
+  email: '15506531157@163.com'
+}
+[2023-06-14T09:57:10.444] [INFO] default - app is running at port=3000
+[2023-06-14T09:57:24.478] [WARN] default - undefined
+[2023-06-14T09:58:24.400] [INFO] default - app is running at port=3000
+[2023-06-14T09:58:55.791] [WARN] default - ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 3,
+  info: '',
+  serverStatus: 2,
+  warningStatus: 0
+}
+[2023-06-14T10:27:09.035] [INFO] default - app is running at port=3000
+[2023-06-14T10:29:35.931] [INFO] default - app is running at port=3000
+[2023-06-14T10:30:25.643] [INFO] default - app is running at port=3000
+[2023-06-14T10:30:27.582] [INFO] default - 17865937390
+[2023-06-14T10:32:15.941] [INFO] default - app is running at port=3000
+[2023-06-14T10:33:55.954] [INFO] default - app is running at port=3000
+[2023-06-14T10:41:52.598] [INFO] default - app is running at port=3000
+[2023-06-14T10:44:03.336] [INFO] default - app is running at port=3000
+[2023-06-14T10:44:43.938] [INFO] default - app is running at port=3000
+[2023-06-14T10:45:19.146] [INFO] default - app is running at port=3000
+[2023-06-14T10:45:49.613] [INFO] default - app is running at port=3000
+[2023-06-14T10:49:14.052] [INFO] default - app is running at port=3000
+[2023-06-14T10:49:40.008] [WARN] default - []
+[2023-06-14T10:54:01.785] [INFO] default - app is running at port=3000
+[2023-06-14T10:54:18.555] [ERROR] default - Error [ERR_CRYPTO_HASH_FINALIZED]: Digest already called
+    at new NodeError (node:internal/errors:399:5)
+    at Hash.update (node:internal/crypto/hash:104:11)
+    at encryption (D:\ProjectDocumentStorage\shixun\co_blog_interface\util\index.js:23:58)
+    at phoneLogin (D:\ProjectDocumentStorage\shixun\co_blog_interface\model\userModel.js:68:16)
+    at exports.phoneLogin (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:122:32)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  code: 'ERR_CRYPTO_HASH_FINALIZED'
+}
+[2023-06-14T11:01:08.057] [INFO] default - app is running at port=3000
+[2023-06-14T11:01:14.277] [WARN] default - [
+  {
+    uid: 1,
+    user_name: '张杰',
+    password: 'd4c2a1d9ec514f82e1c593d60fd66f74',
+    phone: '17865937390',
+    email: '15506531157@163.com',
+    limits: 0,
+    integral: 10000,
+    member: 0,
+    head_sculpture: null,
+    is_load: 0
+  }
+]
+[2023-06-14T11:12:55.876] [INFO] default - app is running at port=3000
+[2023-06-14T11:16:24.512] [INFO] default - app is running at port=3000
+[2023-06-14T11:17:27.557] [ERROR] default - TypeError: Cannot read properties of undefined (reading 'is_load')
+    at selectBan (D:\ProjectDocumentStorage\shixun\co_blog_interface\model\userModel.js:58:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async exports.emailLogin (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:158:26)
+[2023-06-14T11:18:42.935] [INFO] default - app is running at port=3000
+[2023-06-14T11:18:44.771] [ERROR] default - TypeError: Cannot read properties of undefined (reading 'is_load')
+    at selectBan (D:\ProjectDocumentStorage\shixun\co_blog_interface\model\userModel.js:58:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async exports.emailLogin (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:158:26)
+[2023-06-14T11:19:27.954] [INFO] default - app is running at port=3000
+[2023-06-14T11:21:14.390] [INFO] default - app is running at port=3000
+[2023-06-14T11:21:16.467] [ERROR] default - TypeError: Cannot read properties of undefined (reading 'is_load')
+    at selectBan (D:\ProjectDocumentStorage\shixun\co_blog_interface\model\userModel.js:58:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async exports.emailLogin (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:153:30)
+[2023-06-14T11:23:06.989] [INFO] default - app is running at port=3000
+[2023-06-14T11:24:48.565] [INFO] default - app is running at port=3000
+[2023-06-14T11:27:26.042] [INFO] default - app is running at port=3000
+[2023-06-14T11:41:35.018] [INFO] default - app is running at port=3000
+[2023-06-14T11:42:17.839] [ERROR] default - TypeError: Cannot read properties of undefined (reading 'username')
+    at exports.userInfo (D:\ProjectDocumentStorage\shixun\co_blog_interface\controller\userController.js:181:28)
+    at Layer.handle [as handle_request] (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\layer.js:95:5)
+    at D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\ProjectDocumentStorage\shixun\co_blog_interface\node_modules\express\lib\router\index.js:47:12)
+[2023-06-14T11:45:24.370] [INFO] default - app is running at port=3000
+[2023-06-14T11:48:01.231] [INFO] default - app is running at port=3000
+[2023-06-14T11:48:18.323] [INFO] default - {
+  username: undefined,
+  head_sculpture: undefined,
+  email: undefined,
+  phone: undefined,
+  limits: undefined,
+  integral: undefined,
+  member: undefined
+}
+[2023-06-14T12:20:58.609] [INFO] default - app is running at port=3000
+[2023-06-14T12:21:04.706] [INFO] default - [
+  {
+    uid: 1,
+    user_name: '张杰',
+    password: 'd4c2a1d9ec514f82e1c593d60fd66f74',
+    phone: '17865937390',
+    email: '15506531157@163.com',
+    limits: 0,
+    integral: 10000,
+    member: 0,
+    head_sculpture: null,
+    is_load: 0
+  }
+]
+[2023-06-14T12:22:40.373] [INFO] default - app is running at port=3000
+[2023-06-14T12:22:45.225] [INFO] default - [
+  {
+    uid: 1,
+    user_name: '张杰',
+    password: 'd4c2a1d9ec514f82e1c593d60fd66f74',
+    phone: '17865937390',
+    email: '15506531157@163.com',
+    limits: 0,
+    integral: 10000,
+    member: 0,
+    head_sculpture: null,
+    is_load: 0
+  }
+]
+[2023-06-14T12:24:53.502] [INFO] default - app is running at port=3000
+[2023-06-14T12:25:01.365] [INFO] default - [
+  {
+    uid: 1,
+    user_name: '张杰',
+    password: 'd4c2a1d9ec514f82e1c593d60fd66f74',
+    phone: '17865937390',
+    email: '15506531157@163.com',
+    limits: 0,
+    integral: 10000,
+    member: 0,
+    head_sculpture: null,
+    is_load: 0
+  }
+]
+[2023-06-14T12:26:00.316] [INFO] default - app is running at port=3000
+[2023-06-14T12:26:26.501] [INFO] default - {
+  uid: 1,
+  user_name: '张杰',
+  password: 'd4c2a1d9ec514f82e1c593d60fd66f74',
+  phone: '17865937390',
+  email: '15506531157@163.com',
+  limits: 0,
+  integral: 10000,
+  member: 0,
+  head_sculpture: null,
+  is_load: 0
+}

@@ -1,7 +1,5 @@
 // 导入log4js
 const log4js = require("log4js");
-
-
 // 配置log4js
 log4js.configure({ // 复写配置信息
     appenders: { // 配置存储日志格式
@@ -23,7 +21,35 @@ log4js.configure({ // 复写配置信息
 });
 // 实例化log4js对象
 const logger = log4js.getLogger();
+
+// 数据库连接配置
+const db = () => {
+    return {
+        host: 'localhost', // 连接地址
+        user: 'root', // 数据库用户名
+        password: '555555', // 数据库密码
+        database: 'co_blog' // 数据库名称
+    }
+}
+
+// 定义私钥
+const privateKey = 'c38c77fc-a634-4eb5-9cc9-6c6eea76836c';
+// session私钥
+const sessionSecret = '8b9384dc-e348-4d00-a954-da1dbec8b296';
+// 定义非法字符正则
+const illegalRegExp=/(.*\=.*\-\-.*)|(.*(\+|\-).*)|(.*\w+(%|\$|#|&)\w+.*)|(.*\|\|.*)|(.*\s+(and|or)\s+.*)|(.*\b(select|update|union|and|or|delete|insert|trancate|char|into|substr|ascii|declare|exec|count|master|info|drop|execute)\b.*)/i;
+// 定义手机号正则
+const phoneRegExp = /^1[3456789]\d{9}$/;
+// 定义邮箱正则
+const emailRegExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+
 // 抛出对象
 module.exports = {
-    logger
+    logger,
+    db,
+    privateKey,
+    sessionSecret,
+    illegalRegExp,
+    phoneRegExp,
+    emailRegExp
 }

@@ -26,7 +26,7 @@ router.post('/emailLogin', userCtrl.emailLogin);
 router.get('/userInfo', userCtrl.userInfo);
 
 // 修改用户信息
-router.put('/userMessage', userCtrl.modifyUserMessage);
+router.put('/modifyUserMessage', userCtrl.modifyUserMessage);
 
 // 修改用户密码
 router.put('/modifyPassword', userCtrl.modifyPassword);
