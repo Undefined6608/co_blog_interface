@@ -6,6 +6,8 @@ const router = express.Router();
 router.use('/user', require('./userRouter'));
 // 文章相关路由
 router.use('/article',require('./articleRouter'));
+// 上传相关路由
+router.use('/upload',require('./uploadRouter'));
 // 评论相关路由
 
 // 反馈相关路由

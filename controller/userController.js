@@ -1,4 +1,4 @@
-const {logger, illegalRegExp} = require("../config/connfig.default");
+const {illegalRegExp, logger} = require("../config/connfig.default");
 const {illegalCharacter, phoneCharacter, emailCharacter} = require("../util");
 const {resultType, FAIL, SUCCESS} = require("../model");
 const {occupySQL, registerSQL, phoneLogin, ban, selectBan, emailLogin} = require("../model/userModel");
@@ -10,8 +10,10 @@ exports.userNameOccupy = async (req, res, next) => {
         // logger.info(req.body);
         const body = req.body;
         // 2.数据验证
+        // 判断是否为空
+        if (!body.username) return res.send(resultType(FAIL, "用户名为空"));
         // 判断是否含有非法字符
-        if (illegalCharacter(body.username)) return res.send(resultType(FAIL, "信息中含有非法字符"));
+        if (illegalCharacter(body.username)) return res.send(resultType(FAIL, "用户名中含有非法字符"));
         // 3.验证通过，通过查找数据库判断是否重复
         if (await occupySQL('user_name', body.username)) return res.send(resultType(FAIL, "用户名重复!"));
         // 4.发送成功响应
@@ -28,6 +30,8 @@ exports.phoneOccupy = async (req, res, next) => {
         // logger.info(req.body);
         const body = req.body;
         // 2.数据验证
+        // 判断是否为空
+        if (!body.phone) return res.send(resultType(FAIL, "电话号码为空"));
         // 判断是否含有非法字符
         if (illegalCharacter(body.phone)) return res.send(resultType(FAIL, "信息中含有非法字符"));
         // 判断电话号码格式是否正确
@@ -48,6 +52,8 @@ exports.emailOccupy = async (req, res, next) => {
         // logger.info(req.body);
         const body = req.body;
         // 2.数据验证
+        // 判断是否为空
+        if (!body.email) return res.send(resultType(FAIL, "邮箱为空"));
         // 判断是否含有非法字符
         if (illegalCharacter(body.email)) return res.send(resultType(FAIL, "信息中含有非法字符"));
         // 判断邮箱格式是否正确
@@ -61,11 +67,20 @@ exports.emailOccupy = async (req, res, next) => {
     }
 };
 
+// 发送验证码
+exports.emailCode = async (req, res, next) => {
+    try {
+
+    }catch (err){
+
+    }
+}
+
 // 用户注册
 exports.register = async (req, res, next) => {
     try {
         // 1.获取请求体数据
-        // logger.info(req.body);
+        logger.info(req.body);
         const body = req.body;
         // 2.数据验证
         // 判断是否为空
@@ -102,6 +117,8 @@ exports.phoneLogin = async (req, res, next) => {
         // 2.数据验证
         // 返回账号/密码为空提示
         if (!body.phone || !body.password) return res.send(resultType(FAIL, "电话号码/密码为空！"));
+        // 判断用户协议是否同意
+        if (!body.remember === 0) return res.send(FAIL, "请同意用户协议！");
         // 返回格式错误信息
         if (phoneCharacter(body.phone)) return res.send(resultType(FAIL, "电话号码格式错误！"));
         // 判断是否含有非法字符，如果有，则进行封禁操作
@@ -113,7 +130,7 @@ exports.phoneLogin = async (req, res, next) => {
             if (banStatus.serverStatus !== 2) return res.send(resultType(FAIL, "封禁失败！"));
             const banCount = await selectBan('phone', body.phone.replace(illegalRegExp, ''));
             // 返回信息
-            return res.send(resultType(FAIL, banCount < 3 ? "您的操作为违法行为，请停止您的操作，否则您的账号将在：" + (3 - banCount) + "次后被封禁" : "您的账号已被封禁"));
+            return res.send(resultType(FAIL, banCount < 3 ? "您的操作是违法行为，请停止您的操作，否则您的账号将在：" + (3 - banCount) + "次后被封禁" : "您的账号已被封禁"));
         }
         // 验证账号是否已被封禁
         const banCount = await selectBan('phone', body.phone.replace(illegalRegExp, ''));
@@ -141,6 +158,8 @@ exports.emailLogin = async (req, res, next) => {
         // 2.数据验证
         // 返回账号/密码为空提示
         if (!body.email || !body.password) return res.send(resultType(FAIL, "邮箱/密码为空！"));
+        // 判断用户协议是否同意
+        if (!body.remember === 0) return res.send(FAIL, "请同意用户协议！");
         // 返回格式错误信息
         if (emailCharacter(body.email)) return res.send(resultType(FAIL, "邮箱格式错误！"));
         // 判断是否含有非法字符，如果有，则进行封禁操作
@@ -152,7 +171,7 @@ exports.emailLogin = async (req, res, next) => {
             if (banStatus.serverStatus !== 2) return res.send(resultType(FAIL, "封禁失败！"));
             const banCount = await selectBan('email', body.email.replace(illegalRegExp, ''));
             // 返回信息
-            return res.send(resultType(FAIL, banCount < 3 ? "您的操作为违法行为，请停止您的操作，否则您的账号将在：" + (3 - banCount) + "次后被封禁" : "您的账号已被封禁"));
+            return res.send(resultType(FAIL, banCount < 3 ? "您的操作是违法行为，请停止您的操作，否则您的账号将在：" + (3 - banCount) + "次后被封禁" : "您的账号已被封禁"));
         }
         // 验证账号是否已被封禁
         const banCount = await selectBan('email', body.email.replace(illegalRegExp, ''));
@@ -163,7 +182,7 @@ exports.emailLogin = async (req, res, next) => {
         if (userInfo.length === 0) return res.send(resultType(FAIL, "邮箱/密码错误！"));
         // logger.warn(userInfo);
         // 存储登录状态
-        req.session.user = userInfo;
+        req.session.user = userInfo[0];
         // 发送成功响应
         res.send(resultType(SUCCESS, "登录成功"));
     } catch (err) {
@@ -179,7 +198,7 @@ exports.userInfo = async (req, res, next) => {
         // 权限验证
         if (!user) return res.send(resultType(FAIL, "权限错误，无法获取系统信息！"));
         // 获得权限，返回数据
-        logger.info(user);
+        // logger.info(user);
         res.send(resultType(SUCCESS, "查询成功", {
             username: user.user_name, // 用户名
             head_sculpture: user.head_sculpture,// 用户头像
@@ -229,9 +248,9 @@ exports.logout = async (req, res, next) => {
     try {
         // 处理请求
         req.session.destroy((err) => {
-
+            if (err) return res.send(resultType(FAIL, err));
+            res.send(resultType(SUCCESS, "退出成功"));
         })
-        res.send("退出成功");
     } catch (err) {
         next(err);
     }

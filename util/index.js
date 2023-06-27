@@ -1,5 +1,8 @@
 const crypto = require('crypto');
 const {illegalRegExp, phoneRegExp, emailRegExp, privateKey} = require("../config/connfig.default");
+// 导入multer用于处理图片
+const multer  = require('multer');
+const path = require("path");
 
 // 验证非法字符
 const illegalCharacter = (...str) => {
@@ -24,6 +27,19 @@ function md5Hash(password) {
     hash.update(password);
     return hash.digest('hex');
 }
+// 上传图片
+// 设置存储位置和文件名
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/') // 指定存储目录
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        cb(null, Date.now() + ext); // 使用时间戳作为文件名
+    }
+});
+
+const uploadImgUtil = multer({storage});
 
 const encryption = (pwd) => md5Hash(md5Hash(pwd) + privateKey);
 
@@ -31,5 +47,6 @@ module.exports = {
     illegalCharacter,
     phoneCharacter,
     emailCharacter,
-    encryption
+    encryption,
+    uploadImgUtil
 }

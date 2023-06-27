@@ -15,6 +15,7 @@ const pool = mysql.createPool(db());
  * @returns {Promise<boolean>}
  */
 const occupySQL = async (tag, value) => {
+    console.log(tag,value);
     const [result, _] = await pool.execute(`SELECT uid FROM sys_user where ${tag}=?`, [value]);
     return result.length !== 0;
 }
@@ -55,6 +56,7 @@ const selectBan = async (tag, val) => {
     // 查询is_load字段值
     const [banStatus, _2] = await pool.execute(`SELECT is_load FROM sys_user WHERE ${tag}=?`, [val]);
     // 返回查询对象
+    if (!banStatus[0]) return 0;
     return banStatus[0].is_load;
 }
 

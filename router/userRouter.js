@@ -13,6 +13,9 @@ router.post('/phoneOccupy', userCtrl.phoneOccupy);
 // 邮箱查重
 router.post('/emailOccupy', userCtrl.emailOccupy);
 
+// 发送验证码
+router.post('/emailCode', userCtrl.emailCode);
+
 // 用户注册
 router.post('/register', userCtrl.register);
 
