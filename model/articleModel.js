@@ -51,10 +51,28 @@ const addArticleSQL = async (articleInfo) => {
     return result;
 }
 
+const addReadSQL = async (articleID) => {
+    const [result, _] = await pool.execute(`UPDATE article SET readed = readed + 1 WHERE id= ?`, [articleID]);
+    return result;
+}
+
+const getCommitsSQL = async (articleID) => {
+    const [result, _] = await pool.execute(`SELECT sys_user.user_name,sys_user.integral,sys_user.member,sys_user.head_sculpture, comments.id, comments.context FROM comments JOIN sys_user ON sys_user.uid=comments.user_id WHERE comments.article_id=? ORDER BY comments.id DESC`, [articleID]);
+    return result;
+}
+
+const addCommitsSQL = async (commitBody) => {
+    const [result, _] = await pool.execute(`INSERT INTO comments (user_id, article_id, context) VALUES (?, ?, ?)`, [commitBody.userId, commitBody.articleId, commitBody.context]);
+    return result;
+}
+
 module.exports = {
     articleTypeSQL,
     articleListSQL,
     articleMsgSQL,
     isArticleTypeSQL,
-    addArticleSQL
+    addArticleSQL,
+    addReadSQL,
+    getCommitsSQL,
+    addCommitsSQL
 }

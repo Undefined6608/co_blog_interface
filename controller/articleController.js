@@ -6,7 +6,7 @@ const {
     articleListSQL,
     articleMsgSQL,
     isArticleTypeSQL,
-    addArticleSQL
+    addArticleSQL, addReadSQL, getCommitsSQL, addCommitsSQL
 } = require("../model/articleModel");
 const {logger} = require("../config/connfig.default");
 const {illegalCharacter} = require("../util");
@@ -113,14 +113,14 @@ exports.addArticle = async (req, res, next) => {
         if (!body.articleContext || !body.articleType || !body.articleTitle || !body.icon) return res.send(resultType(FAIL, "数据为空，请检查！"));
         // 获取session里的用户信息
         const userInfo = req.session.user;
-        if (!userInfo) return res.send(resultType(FAIL,"请先登录"));
+        if (!userInfo) return res.send(resultType(FAIL, "请先登录"));
         // console.log(userInfo);
         if (userInfo.limits !== 0 && userInfo.limits !== 1) return res.send(resultType(FAIL, "您没有权限添加文章！", null));
         if (illegalCharacter(body.articleType) || illegalCharacter(body.articleTitle) || illegalCharacter(body.userId) || illegalCharacter(body.icon)) return res.send(resultType(FAIL, "数据中含有非法字符！"));
         const temp = await isArticleTypeSQL(body.articleType * 1);
         if (!temp) return res.send(resultType(FAIL, "您选择的类型错误，请重新选择！"));
         const date = new Date();
-        const articleContext = iconv.encode(body.articleContext,'utf-8').toString();
+        const articleContext = iconv.encode(body.articleContext, 'utf-8').toString();
         const articleInfo = {
             userID: userInfo.uid,
             articleType: body.articleType,
@@ -131,8 +131,79 @@ exports.addArticle = async (req, res, next) => {
         }
         const addCode = await addArticleSQL(articleInfo);
         // logger.warn(addCode);
-        if (!addCode||addCode.affectedRows===0) return res.send(resultType(FAIL,"保存失败，请检查后重试！"));
-        res.send(resultType(SUCCESS,"保存成功！"));
+        if (!addCode || addCode.affectedRows === 0) return res.send(resultType(FAIL, "保存失败，请检查后重试！"));
+        res.send(resultType(SUCCESS, "保存成功！"));
+    } catch (err) {
+        next(err);
+    }
+}
+
+/**
+ * 更新阅读量
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<void>}
+ */
+exports.addRead = async (req, res, next) => {
+    try {
+        const body = req.body;
+        if (!body.articleId) return res.send(resultType(FAIL, "文章不存在！"));
+        if (illegalCharacter(body.articleId)) return res.send(resultType(FAIL, "参数值含有非法字符！"));
+        const updateCode = await addReadSQL(body.articleId * 1);
+        // console.log(updateCode);
+        if (updateCode.affectedRows === 0) return res.send(resultType(FAIL, "更新失败！"));
+        return res.send(resultType(SUCCESS, "更新成功！"));
+    } catch (err) {
+        next(err);
+    }
+}
+
+/**
+ * 查询评论
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<void>}
+ */
+exports.getCommits = async (req, res, next) => {
+    try {
+        const query = req.query;
+        console.log(query);
+        if (!query.articleId) return res.send(resultType(FAIL, "参数错误！"));
+        if (illegalCharacter(query.articleId)) return res.send(resultType(FAIL, "参数中含有非法字符！"));
+        const selectTemp = await getCommitsSQL(query.articleId * 1);
+        // logger.warn(selectTemp);
+        if (selectTemp.length < 1) return res.send(resultType(FAIL, "暂无评论！"));
+        return res.send(resultType(SUCCESS, "查询成功！", selectTemp))
+    } catch (err) {
+        next(err);
+    }
+}
+
+/**
+ * 添加评论
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<void>}
+ */
+exports.addCommits = async (req, res, next) => {
+    try {
+        const body = req.body;
+        // console.log(body);
+        if (!body.articleId || !body.context) return res.send(resultType(FAIL, "参数错误！"));
+        if (illegalCharacter(body.articleId) || illegalCharacter(body.context)) return res.send(resultType(FAIL, "参数中含有非法字符！"));
+        const userInfo = req.session.user;
+        // logger.warn(userInfo);
+        if (!userInfo) return res.send(resultType(FAIL, "请先登录！"));
+        const updateTemp = await addCommitsSQL({
+            userId: userInfo.uid,
+            articleId: body.articleId,
+            context: body.context
+        });
+        if (updateTemp.affectedRows === 0) return res.send(resultType(FAIL, "提交失败！"));
+        return res.send(resultType(SUCCESS, "提交成功！"));
     } catch (err) {
         next(err);
     }
