@@ -118,6 +118,7 @@ exports.addArticle = async (req, res, next) => {
         if (userInfo.limits !== 0 && userInfo.limits !== 1) return res.send(resultType(FAIL, "您没有权限添加文章！", null));
         if (illegalCharacter(body.articleType) || illegalCharacter(body.articleTitle) || illegalCharacter(body.userId) || illegalCharacter(body.icon)) return res.send(resultType(FAIL, "数据中含有非法字符！"));
         const temp = await isArticleTypeSQL(body.articleType * 1);
+        console.log(temp);
         if (!temp) return res.send(resultType(FAIL, "您选择的类型错误，请重新选择！"));
         const date = new Date();
         const articleContext = iconv.encode(body.articleContext, 'utf-8').toString();
@@ -129,6 +130,7 @@ exports.addArticle = async (req, res, next) => {
             date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
             icon: body.icon
         }
+        console.log(articleInfo);
         const addCode = await addArticleSQL(articleInfo);
         // logger.warn(addCode);
         if (!addCode || addCode.affectedRows === 0) return res.send(resultType(FAIL, "保存失败，请检查后重试！"));
