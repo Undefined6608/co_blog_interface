@@ -18,11 +18,9 @@ const session = require('express-session');
 const app = express();
 // 定义允许跨域请求的请求源地址列表
 const allowedOrigins = [
-    'http://192.168.126.1:3000',
-    'http://localhost:3000',
+    'http://192.168.0.101:3000',
     'http://39.101.72.168',
-    'http://127.0.0.1',
-    'http://localhost'
+    'http://127.0.0.1'
 ];
 
 // 挂载cors实现跨域

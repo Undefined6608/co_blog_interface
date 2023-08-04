@@ -21,7 +21,7 @@ const articleTypeSQL = async () => {
  * @returns {Promise<*>}
  */
 const articleListSQL = async (typeID) => {
-    const [result, _] = await pool.execute('SELECT sys_user.user_name, article.* FROM article JOIN sys_user ON sys_user.uid=article.user_id WHERE article.type_id=?', [typeID]);
+    const [result, _] = await pool.execute('SELECT sys_user.user_name, sys_user.head_sculpture, article.* FROM article JOIN sys_user ON sys_user.uid=article.user_id WHERE article.type_id=?', [typeID]);
     return result;
 }
 
@@ -31,7 +31,7 @@ const articleListSQL = async (typeID) => {
  * @returns {Promise<*>}
  */
 const articleMsgSQL = async (articleID) => {
-    const [result, _] = await pool.execute('SELECT sys_user.user_name, article.* FROM article JOIN sys_user ON sys_user.uid=article.user_id WHERE article.id=?', [articleID]);
+    const [result, _] = await pool.execute('SELECT sys_user.user_name,sys_user.head_sculpture, article.* FROM article JOIN sys_user ON sys_user.uid=article.user_id WHERE article.id=?', [articleID]);
     return result;
 }
 

@@ -56,9 +56,10 @@ exports.getArticleList = async (req, res, next) => {
                 return {
                     id: value.id,
                     userName: value.user_name,
+                    avatar: value.head_sculpture,
                     read: value.readed,
                     title: value.title,
-                    context: value.context.length < 40 ? value.context : value.context.substring(0, 40).replace(/[#\[\]<>`]|(TOC)/g, ''),
+                    context: value.context.length < 100 ? value.context : value.context.substring(0, 100).replace(/[#\[\]<>`]|(TOC)/g, ''),
                     date: value.date,
                     icon: value.icon
                 }
@@ -89,6 +90,7 @@ exports.getArticleMsg = async (req, res, next) => {
         res.send(resultType(SUCCESS, "成功", {
             id: articleMsg[0].id,
             userName: articleMsg[0].user_name,
+            avatar: articleMsg[0].head_sculpture,
             read: articleMsg[0].readed,
             title: articleMsg[0].title,
             context: articleMsg[0].context,
@@ -130,7 +132,7 @@ exports.addArticle = async (req, res, next) => {
             date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
             icon: body.icon
         }
-        console.log(articleInfo);
+        logger.warn(articleInfo);
         const addCode = await addArticleSQL(articleInfo);
         // logger.warn(addCode);
         if (!addCode || addCode.affectedRows === 0) return res.send(resultType(FAIL, "保存失败，请检查后重试！"));

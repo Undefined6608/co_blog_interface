@@ -31,7 +31,8 @@ function md5Hash(password) {
 // 设置存储位置和文件名
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/') // 指定存储目录
+        cb(null, 'uploads/') // 指定存储目录 本地
+        // cb(null, '/home/images/'); // 指定存储目录 服务器
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname);
