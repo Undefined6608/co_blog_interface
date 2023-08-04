@@ -32,20 +32,12 @@ const db = () => {
         password: '555555', // 数据库密码
         database: 'co_blog' // 数据库名称
     }
-
-    // 服务器
-    /*return {
-        host: '127.0.0.1', // 连接地址
-        user: 'coblog', // 数据库用户名
-        password: 'Z8LEyp3BhbWceCCh', // 数据库密码
-        database: 'coblog' // 数据库名称
-    }*/
 }
 
 // 定义私钥
-const privateKey = 'c38c77fc-a634-4eb5-9cc9-6c6eea76836c';
+const privateKey = 你的私钥;
 // session私钥
-const sessionSecret = '8b9384dc-e348-4d00-a954-da1dbec8b296';
+const sessionSecret = 你的私钥;
 // 定义非法字符正则
 const illegalRegExp=/(.*\=.*\-\-.*)|(.*(\+|-).*)|(.*\w+(%|\$|#|&)\w+.*)|(.*\|\|.*)|(.*\s+(and|or)\s+.*)|(.*\b(select|update|union|and|or|delete|insert|trancate|char|into|substr|ascii|declare|exec|count|master|info|drop|execute)\b.*)/i;
 // 定义手机号正则
