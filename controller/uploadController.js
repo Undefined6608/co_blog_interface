@@ -6,7 +6,7 @@ exports.addImg = async (req, res, next) => {
         const filename = req.file.filename;
         logger.warn(filename);
         res.send(resultType(SUCCESS, "保存成功", [{
-            url: "http://39.101.72.168:83/" + filename
+            url: "http://192.168.1.254/" + filename
         }]))
     } catch (err) {
         next(err);

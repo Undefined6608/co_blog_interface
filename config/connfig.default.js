@@ -26,21 +26,20 @@ const logger = log4js.getLogger();
 // 数据库连接配置
 const db = () => {
     // 本地
-    /*return {
+    return {
         host: 'localhost', // 连接地址
         user: 'root', // 数据库用户名
         password: '555555', // 数据库密码
         database: 'co_blog' // 数据库名称
     }
-*/
 
     // 服务器
-    return {
+    /*return {
         host: '127.0.0.1', // 连接地址
         user: 'coblog', // 数据库用户名
-        password: 'Z8LEyp3BhbWceCCh', // 数据库密码
+        password: 'GiPpiJRCKemHHsFj', // 数据库密码
         database: 'coblog' // 数据库名称
-    }
+    }*/
 }
 
 // 定义私钥

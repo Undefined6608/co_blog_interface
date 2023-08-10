@@ -129,7 +129,7 @@ exports.addArticle = async (req, res, next) => {
             articleType: body.articleType,
             articleTitle: body.articleTitle,
             articleContext: articleContext,
-            date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
+            date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
             icon: body.icon
         }
         logger.warn(articleInfo);
